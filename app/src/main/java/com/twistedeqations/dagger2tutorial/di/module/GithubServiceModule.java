@@ -1,0 +1,45 @@
+package com.twistedeqations.dagger2tutorial.di.module;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.twistedeqations.dagger2tutorial.network.DateTimeConverter;
+import com.twistedeqations.dagger2tutorial.network.GithubService;
+
+import org.joda.time.DateTime;
+
+import dagger.Module;
+import dagger.Provides;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * Created by Lenovo on 30.11.2016.
+ */
+
+@Module(includes = NetworkModule.class)
+public class GithubServiceModule {
+
+    @Provides
+    public GithubService githubService(Retrofit gitHubRetrofit) {
+        return gitHubRetrofit.create(GithubService.class);
+    }
+
+    @Provides
+    public Gson gson(){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
+        return gsonBuilder.create();
+    }
+
+    @Provides
+    public Retrofit retrofit(Gson gson, OkHttpClient okHttpClient) {
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
+                .baseUrl("https://api.github.com/")
+                .build();
+    }
+
+
+}
