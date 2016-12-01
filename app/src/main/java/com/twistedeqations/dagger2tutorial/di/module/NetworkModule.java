@@ -2,6 +2,8 @@ package com.twistedeqations.dagger2tutorial.di.module;
 
 import android.content.Context;
 
+import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
+
 import java.io.File;
 
 import dagger.Module;
@@ -19,26 +21,32 @@ import timber.log.Timber;
 public class NetworkModule {
 
     @Provides
+    @GithubApplicationScope
     public File file(Context context) {
         return new File(context.getCacheDir(), "okhttp_cache");
     }
 
     @Provides
+    @GithubApplicationScope
     public Cache cache(File cachFile) {
         return new Cache(cachFile, 10 * 1000 * 1000); //10MB cache
     }
 
     @Provides
+    @GithubApplicationScope
     public HttpLoggingInterceptor httpLoggingInterceptor() {
-        return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
                 Timber.i(message);
             }
         });
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        return httpLoggingInterceptor;
     }
 
     @Provides
+    @GithubApplicationScope
     public OkHttpClient okHttpClient(HttpLoggingInterceptor httpLoggingInterceptor, Cache cache) {
         return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)

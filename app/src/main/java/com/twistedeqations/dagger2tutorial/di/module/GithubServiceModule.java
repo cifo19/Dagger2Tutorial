@@ -2,10 +2,13 @@ package com.twistedeqations.dagger2tutorial.di.module;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
 import com.twistedeqations.dagger2tutorial.network.DateTimeConverter;
 import com.twistedeqations.dagger2tutorial.network.GithubService;
 
 import org.joda.time.DateTime;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,11 +24,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GithubServiceModule {
 
     @Provides
+    @GithubApplicationScope
     public GithubService githubService(Retrofit gitHubRetrofit) {
         return gitHubRetrofit.create(GithubService.class);
     }
 
     @Provides
+    @GithubApplicationScope
     public Gson gson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
@@ -33,6 +38,7 @@ public class GithubServiceModule {
     }
 
     @Provides
+    @GithubApplicationScope
     public Retrofit retrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
