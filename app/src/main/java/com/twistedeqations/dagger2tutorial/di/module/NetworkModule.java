@@ -6,6 +6,8 @@ import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
 
 import java.io.File;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -22,7 +24,7 @@ public class NetworkModule {
 
     @Provides
     @GithubApplicationScope
-    public File file(Context context) {
+    public File file(@Named("application_context") Context context) {
         return new File(context.getCacheDir(), "okhttp_cache");
     }
 

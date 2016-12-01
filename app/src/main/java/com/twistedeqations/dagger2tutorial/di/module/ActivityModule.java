@@ -1,5 +1,6 @@
 package com.twistedeqations.dagger2tutorial.di.module;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
@@ -10,22 +11,21 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Lenovo on 30.11.2016.
+ * Created by Lenovo on 1.12.2016.
  */
-
 @Module
-public class ContextModule {
+public class ActivityModule {
 
-    private Context context;
+    private Activity context;
 
-    public ContextModule(Context context){
-        this.context = context.getApplicationContext();
+    public ActivityModule(Activity context) {
+        this.context = context;
     }
 
     @Provides
     @GithubApplicationScope
-    @Named("application_context")
-    public Context context(){
+    @Named("activity_context")
+    public Context context() {
         return context;
     }
 }

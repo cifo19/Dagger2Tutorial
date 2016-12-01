@@ -1,6 +1,7 @@
 package com.twistedeqations.dagger2tutorial.di.component;
 
 import com.squareup.picasso.Picasso;
+import com.twistedeqations.dagger2tutorial.di.module.ActivityModule;
 import com.twistedeqations.dagger2tutorial.di.module.GithubServiceModule;
 import com.twistedeqations.dagger2tutorial.di.module.PicassoModule;
 import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
@@ -13,7 +14,7 @@ import dagger.Component;
  */
 
 @GithubApplicationScope
-@Component(modules = {GithubServiceModule.class, PicassoModule.class})
+@Component(modules = {GithubServiceModule.class, PicassoModule.class, ActivityModule.class})
 public interface GithubApplicationComponent {
 
     Picasso getPicasso();
