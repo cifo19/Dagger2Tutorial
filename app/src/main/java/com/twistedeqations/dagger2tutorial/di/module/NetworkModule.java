@@ -2,6 +2,7 @@ package com.twistedeqations.dagger2tutorial.di.module;
 
 import android.content.Context;
 
+import com.twistedeqations.dagger2tutorial.di.qualifier.ApplicationContext;
 import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class NetworkModule {
 
     @Provides
     @GithubApplicationScope
-    public File file(@Named("application_context") Context context) {
+    public File file(@ApplicationContext Context context) {
         return new File(context.getCacheDir(), "okhttp_cache");
     }
 
