@@ -34,6 +34,7 @@ public class GithubApplication extends Application {
         return (GithubApplication) activity.getApplication();
     }
 
+    GithubApplicationComponent component;
     private GithubService githubService;
     private Picasso picasso;
 
@@ -48,7 +49,7 @@ public class GithubApplication extends Application {
         //sadece ContextModule set etmemizin sebebi ise : Constructorının parametre alması
         //Constructorı parametre almayan moduleleri newlemeye gerek yok, Dagger kendisi newliyor.
 
-        GithubApplicationComponent component = DaggerGithubApplicationComponent.builder()
+        component = DaggerGithubApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
 
@@ -57,11 +58,7 @@ public class GithubApplication extends Application {
 
     }
 
-    public GithubService getGithubService() {
-        return githubService;
-    }
-
-    public Picasso getPicasso() {
-        return picasso;
+    public GithubApplicationComponent githubApplicationComponent(){
+        return  component;
     }
 }

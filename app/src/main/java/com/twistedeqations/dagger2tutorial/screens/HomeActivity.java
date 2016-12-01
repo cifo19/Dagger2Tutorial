@@ -8,6 +8,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.twistedeqations.dagger2tutorial.GithubApplication;
 import com.twistedeqations.dagger2tutorial.R;
+import com.twistedeqations.dagger2tutorial.di.component.DaggerHomeActivityComponent;
+import com.twistedeqations.dagger2tutorial.di.component.HomeActivityComponent;
+import com.twistedeqations.dagger2tutorial.di.module.HomeActivityModule;
 import com.twistedeqations.dagger2tutorial.models.GithubRepo;
 import com.twistedeqations.dagger2tutorial.network.GithubService;
 import com.twistedeqations.dagger2tutorial.screens.home.AdapterRepos;
@@ -22,50 +25,50 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-  @BindView(R.id.repo_home_list)
-  ListView listView;
+    @BindView(R.id.repo_home_list)
+    ListView listView;
 
-  GithubService githubService;
+    GithubService githubService;
 
-  Call<List<GithubRepo>> reposCall;
+    Call<List<GithubRepo>> reposCall;
 
-  AdapterRepos adapterRepos;
+    AdapterRepos adapterRepos;
 
-  Picasso picasso;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_home);
-    ButterKnife.bind(this);
+        HomeActivityComponent homeActivityComponent = DaggerHomeActivityComponent.builder()
+                .homeActivityModule(new HomeActivityModule(this))
+                .githubApplicationComponent(GithubApplication.get(this).githubApplicationComponent())
+                .build();
 
+        adapterRepos = homeActivityComponent.adapterRepos();
+        githubService = homeActivityComponent.githubService();
 
-    githubService = GithubApplication.get(this).getGithubService();
-    picasso = GithubApplication.get(this).getPicasso();
+        listView.setAdapter(adapterRepos);
 
-    adapterRepos = new AdapterRepos(this, picasso);
-    listView.setAdapter(adapterRepos);
+        reposCall = githubService.getAllRepos();
+        reposCall.enqueue(new Callback<List<GithubRepo>>() {
+            @Override
+            public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
+                adapterRepos.swapData(response.body());
+            }
 
-
-    reposCall = githubService.getAllRepos();
-    reposCall.enqueue(new Callback<List<GithubRepo>>() {
-        @Override
-        public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
-          adapterRepos.swapData(response.body());
-        }
-
-        @Override
-        public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
-          Toast.makeText(HomeActivity.this, "Error getting repos " + t.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-      });
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    if(reposCall != null) {
-      reposCall.cancel();
+            @Override
+            public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
+                Toast.makeText(HomeActivity.this, "Error getting repos " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-  }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (reposCall != null) {
+            reposCall.cancel();
+        }
+    }
 }
