@@ -2,8 +2,7 @@ package com.twistedeqations.dagger2tutorial.di.component;
 
 import com.twistedeqations.dagger2tutorial.di.module.HomeActivityModule;
 import com.twistedeqations.dagger2tutorial.di.scope.HomeActivityScope;
-import com.twistedeqations.dagger2tutorial.network.GithubService;
-import com.twistedeqations.dagger2tutorial.screens.home.AdapterRepos;
+import com.twistedeqations.dagger2tutorial.screens.HomeActivity;
 
 import dagger.Component;
 
@@ -13,9 +12,8 @@ import dagger.Component;
 
 @Component(modules = {HomeActivityModule.class} , dependencies = {GithubApplicationComponent.class})
 @HomeActivityScope
-public interface HomeActivityComponent {
+public interface
+HomeActivityComponent {
 
-    AdapterRepos adapterRepos();
-
-    GithubService githubService();
+    void injectHomeActivity(HomeActivity homeActivity);
 }

@@ -14,15 +14,15 @@ import dagger.Provides;
 @Module
 public class HomeActivityModule {
 
-    HomeActivity homeActivity;
+    private final HomeActivity homeActivity;
 
-    public HomeActivityModule(HomeActivity homeActivity){
+    public HomeActivityModule(HomeActivity homeActivity) {
         this.homeActivity = homeActivity;
     }
 
     @Provides
     @HomeActivityScope
-    public AdapterRepos adapterRepos(Picasso picasso){
-        return new AdapterRepos(homeActivity, picasso);
+    public HomeActivity homeActivity() {
+        return homeActivity;
     }
 }

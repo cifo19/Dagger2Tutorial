@@ -7,10 +7,13 @@ import android.widget.BaseAdapter;
 
 import com.squareup.picasso.Picasso;
 import com.twistedeqations.dagger2tutorial.models.GithubRepo;
+import com.twistedeqations.dagger2tutorial.screens.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class AdapterRepos extends BaseAdapter {
 
@@ -18,7 +21,8 @@ public class AdapterRepos extends BaseAdapter {
   private final Context context;
   private final Picasso picasso;
 
-  public AdapterRepos(Context context, Picasso picasso) {
+  @Inject
+  public AdapterRepos(HomeActivity context, Picasso picasso) {
     this.context = context;
     this.picasso = picasso;
   }

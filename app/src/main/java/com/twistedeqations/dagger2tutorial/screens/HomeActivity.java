@@ -17,6 +17,8 @@ import com.twistedeqations.dagger2tutorial.screens.home.AdapterRepos;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -28,10 +30,12 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.repo_home_list)
     ListView listView;
 
-    GithubService githubService;
-
     Call<List<GithubRepo>> reposCall;
 
+    @Inject
+    GithubService githubService;
+
+    @Inject
     AdapterRepos adapterRepos;
 
     @Override
@@ -45,8 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 .githubApplicationComponent(GithubApplication.get(this).githubApplicationComponent())
                 .build();
 
-        adapterRepos = homeActivityComponent.adapterRepos();
-        githubService = homeActivityComponent.githubService();
+        homeActivityComponent.injectHomeActivity(this);
 
         listView.setAdapter(adapterRepos);
 
