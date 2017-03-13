@@ -1,7 +1,7 @@
 package com.twistedeqations.dagger2tutorial.screens;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
 
     @Inject
     GithubService githubService;
+
+    @Inject
+    Picasso picasso;
 
     @Inject
     AdapterRepos adapterRepos;

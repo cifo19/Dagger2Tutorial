@@ -1,9 +1,7 @@
 package com.twistedeqations.dagger2tutorial.di.module;
 
-import com.squareup.picasso.Picasso;
 import com.twistedeqations.dagger2tutorial.di.scope.HomeActivityScope;
 import com.twistedeqations.dagger2tutorial.screens.HomeActivity;
-import com.twistedeqations.dagger2tutorial.screens.home.AdapterRepos;
 
 import dagger.Module;
 import dagger.Provides;

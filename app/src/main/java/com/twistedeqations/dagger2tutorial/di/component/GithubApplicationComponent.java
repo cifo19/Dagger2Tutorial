@@ -1,7 +1,7 @@
 package com.twistedeqations.dagger2tutorial.di.component;
 
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-import com.twistedeqations.dagger2tutorial.di.module.ActivityModule;
 import com.twistedeqations.dagger2tutorial.di.module.GithubServiceModule;
 import com.twistedeqations.dagger2tutorial.di.module.PicassoModule;
 import com.twistedeqations.dagger2tutorial.di.scope.GithubApplicationScope;
@@ -14,9 +14,16 @@ import dagger.Component;
  */
 
 @GithubApplicationScope
-@Component(modules = {GithubServiceModule.class, PicassoModule.class, ActivityModule.class})
+@Component(modules = {GithubServiceModule.class, PicassoModule.class})
 public interface GithubApplicationComponent {
 
+    //Dagger bu getter methodların dönüş değeri tipinde (Picasso ve GithubService)
+    //nesnelere ulaşabileceğimiz generated kodlar oluşturur
+
+    //Bu getter methodları kullanarak generate edilmiş nesnelere ulaşabiliriz.
+
+    //Buraya getter methodlar yazılmaz ise dagger dışarıdan nesnelere ulaşabileceğimiz
+    //methodlar generate etemez.
     Picasso getPicasso();
 
     GithubService getGithubService();

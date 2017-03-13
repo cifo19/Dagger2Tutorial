@@ -53,6 +53,8 @@ public class GithubApplication extends Application {
                 .contextModule(new ContextModule(this))
                 .build();
 
+        //Bu get methodlar kullanılmıyor.
+        //Fakat uygulama getter methodlar yazılarak uygulama genelinde kullanılması sağlanabilir.
         githubService = component.getGithubService();
         picasso = component.getPicasso();
 

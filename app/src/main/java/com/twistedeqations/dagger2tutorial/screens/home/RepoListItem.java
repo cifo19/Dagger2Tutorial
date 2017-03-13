@@ -1,8 +1,10 @@
 package com.twistedeqations.dagger2tutorial.screens.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.twistedeqations.dagger2tutorial.R;
 import com.twistedeqations.dagger2tutorial.models.GithubRepo;
+import com.twistedeqations.dagger2tutorial.screens.DetailActivity;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -43,12 +46,14 @@ public class RepoListItem extends FrameLayout {
     TextView updatedAt;
 
     Picasso picasso;
+    Context context;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.fullDate();
 
     public RepoListItem(Context context, Picasso picasso) {
         super(context);
         this.picasso = picasso;
+        this.context = context;
         inflate(getContext(), R.layout.list_item_repo, this);
         ButterKnife.bind(this);
     }
@@ -70,5 +75,13 @@ public class RepoListItem extends FrameLayout {
         picasso.load(githubRepo.owner.avatarUrl)
                 .placeholder(R.drawable.ic_person_black_24dp)
                 .into(avatarImage);
+
+        avatarImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 }
