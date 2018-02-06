@@ -10,10 +10,9 @@ import dagger.Component;
  * Created by Lenovo on 1.12.2016.
  */
 
-@Component(modules = {HomeActivityModule.class} , dependencies = {GithubApplicationComponent.class})
+@Component(modules = {HomeActivityModule.class}, dependencies = {GithubApplicationComponent.class})
 @HomeActivityScope
 public interface
 HomeActivityComponent {
-
     void injectHomeActivity(HomeActivity homeActivity);
 }

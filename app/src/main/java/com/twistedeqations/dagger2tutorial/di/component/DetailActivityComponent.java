@@ -10,9 +10,8 @@ import dagger.Component;
  * Created by cafer on 13.3.2017.
  */
 
-@Component(modules = {DetailActivityModule.class},dependencies = {GithubApplicationComponent.class})
+@Component(modules = {DetailActivityModule.class}, dependencies = {GithubApplicationComponent.class})
 @DetailActivityScope
 public interface DetailActivityComponent {
-
-    void inject(DetailActivity detailAcitivty);
+    void inject(DetailActivity detailActivity);
 }

@@ -58,7 +58,7 @@ public class RepoListItem extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void setRepo(GithubRepo githubRepo) {
+    public void setRepo(final GithubRepo githubRepo) {
         Locale locale = getResources().getConfiguration().locale;
 
         name.setText(githubRepo.name);
@@ -80,6 +80,7 @@ public class RepoListItem extends FrameLayout {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("owner", githubRepo.owner);
                 context.startActivity(intent);
             }
         });

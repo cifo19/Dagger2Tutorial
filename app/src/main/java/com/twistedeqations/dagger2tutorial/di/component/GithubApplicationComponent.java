@@ -1,6 +1,5 @@
 package com.twistedeqations.dagger2tutorial.di.component;
 
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.twistedeqations.dagger2tutorial.di.module.GithubServiceModule;
 import com.twistedeqations.dagger2tutorial.di.module.PicassoModule;
@@ -24,6 +23,7 @@ public interface GithubApplicationComponent {
 
     //Buraya getter methodlar yazılmaz ise dagger dışarıdan nesnelere ulaşabileceğimiz
     //methodlar generate etemez.
+
     Picasso getPicasso();
 
     GithubService getGithubService();

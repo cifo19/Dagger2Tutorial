@@ -31,7 +31,7 @@ public class GithubServiceModule {
 
     @Provides
     @GithubApplicationScope
-    public Gson gson(){
+    public Gson gson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
         return gsonBuilder.create();
@@ -46,6 +46,4 @@ public class GithubServiceModule {
                 .baseUrl("https://api.github.com/")
                 .build();
     }
-
-
 }
