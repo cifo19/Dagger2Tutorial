@@ -1,6 +1,7 @@
 package com.twistedeqations.dagger2tutorial.screens.home;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,7 +23,7 @@ public class AdapterRepos extends BaseAdapter {
   private final Picasso picasso;
 
   @Inject
-  public AdapterRepos(HomeActivity context, Picasso picasso) {
+  public AdapterRepos(AppCompatActivity context, Picasso picasso) {
     this.context = context;
     this.picasso = picasso;
   }

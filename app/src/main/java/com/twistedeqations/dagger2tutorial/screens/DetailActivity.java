@@ -7,9 +7,9 @@ import android.widget.Toast;
 
 import com.twistedeqations.dagger2tutorial.GithubApplication;
 import com.twistedeqations.dagger2tutorial.R;
-import com.twistedeqations.dagger2tutorial.di.component.DaggerDetailActivityComponent;
-import com.twistedeqations.dagger2tutorial.di.component.DetailActivityComponent;
-import com.twistedeqations.dagger2tutorial.di.module.DetailActivityModule;
+import com.twistedeqations.dagger2tutorial.di.component.ActivityComponent;
+import com.twistedeqations.dagger2tutorial.di.component.DaggerActivityComponent;
+import com.twistedeqations.dagger2tutorial.di.module.ActivityModule;
 import com.twistedeqations.dagger2tutorial.models.GithubRepo;
 import com.twistedeqations.dagger2tutorial.models.GithubRepoOwner;
 import com.twistedeqations.dagger2tutorial.network.GithubService;
@@ -26,9 +26,7 @@ import retrofit2.Response;
  * Created by cafer on 13.3.2017.
  */
 
-public class DetailActivity extends AppCompatActivity {
-
-    DetailActivityComponent detailActivityComponent;
+public class DetailActivity extends BaseActivity {
 
     Call<List<GithubRepo>> userRepositories;
 
@@ -41,16 +39,7 @@ public class DetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_detail);
 
-        //Deprecated olarak işaretlenmesinin sebebi: DetailActivity instance'ı projede kullanılmıyor olması.
-        //Eğer @Inject ile beraber DetailActivity instance'ı inject edilip Toast'un context kabul eden ilk parametresine
-        //inject edilen nesne pass edilirse, deprecated işareti bummmm uçar.
-
-        detailActivityComponent = DaggerDetailActivityComponent.builder()
-                .detailActivityModule(new DetailActivityModule(this))
-                .githubApplicationComponent(GithubApplication.get(this).githubApplicationComponent())
-                .build();
-
-        detailActivityComponent.inject(this);
+        activityComponent.inject(this);
 
         GithubRepoOwner githubRepoOwner = getIntent().getParcelableExtra("owner");
 
